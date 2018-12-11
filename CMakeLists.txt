@@ -5,3 +5,4 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(IRC_SERVER server/main.c)
 add_executable(IRC_CLIENT client/main.c)
+target_link_libraries(IRC_CLIENT ws2_32)
