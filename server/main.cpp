@@ -35,6 +35,11 @@ bool read_from_client(int client_descriptor) {
     return true;
 }
 
+bool process_client(int client_descriptor) {
+    printf("Processing client: '%d'.\n", client_descriptor);
+    return true;
+}
+
 bool write_to_client(int client_descriptor) {
     printf("Writing descriptor: '%d'.\n", client_descriptor);
     write(client_descriptor, "\n\nTest", 6);
@@ -48,7 +53,7 @@ bool write_to_client(int client_descriptor) {
 int main() {
     int server_descriptor = get_server_descriptor();
 
-    auto* multiplexer = new Multiplexer(server_descriptor, read_from_client, write_to_client);
+    auto* multiplexer = new Multiplexer(server_descriptor, read_from_client, process_client, write_to_client);
     multiplexer->start();
     delete multiplexer;
 
