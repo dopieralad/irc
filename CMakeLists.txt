@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(IRC_SERVER
         server/main.cpp
+        common/error.cpp
+        common/error.h
         server/server/server.cpp
         server/server/server.h
         server/multiplexer/multiplexer.cpp

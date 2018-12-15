@@ -1,6 +1,7 @@
 #include <netinet/in.h>
 #include <unistd.h>
 #include "server.h"
+#include "../../common/error.h"
 
 Server::Server() {
     create_socket();
@@ -8,9 +9,16 @@ Server::Server() {
 }
 
 void Server::create_socket() {
-    server_descriptor = socket(PF_INET, SOCK_STREAM, 0);
+    server_descriptor = Error::check(
+            socket(PF_INET, SOCK_STREAM, 0),
+            "Could not create socket!"
+    );
+
     int is_on = 1;
-    setsockopt(server_descriptor, SOL_SOCKET, SO_REUSEADDR, (char*) &is_on, sizeof(is_on));
+    Error::check(
+            setsockopt(server_descriptor, SOL_SOCKET, SO_REUSEADDR, (char*) &is_on, sizeof(is_on)),
+            "Could not set socket options!"
+    );
 }
 
 void Server::create_address() {
@@ -20,9 +28,15 @@ void Server::create_address() {
 }
 
 void Server::start() {
-    bind(server_descriptor, (struct sockaddr*) &server_address, sizeof(server_address));
+    Error::check(
+            bind(server_descriptor, (struct sockaddr*) &server_address, sizeof(server_address)),
+            "Could not bind socket!"
+    );
 
-    listen(server_descriptor, 10);
+    Error::check(
+            listen(server_descriptor, 10),
+            "Could not listen on socket!"
+    );
 }
 
 int Server::get_descriptor() const {
@@ -30,5 +44,8 @@ int Server::get_descriptor() const {
 }
 
 Server::~Server() {
-    close(server_descriptor);
+    Error::check(
+            close(server_descriptor),
+            "Could not close socket!"
+    );
 }

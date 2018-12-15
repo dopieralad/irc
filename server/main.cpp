@@ -29,7 +29,6 @@ bool write_to_client(int client_descriptor) {
 }
 
 /**
- * TODO Add error handling for all I/O operations
  * TODO Add handling of SIGTERM and SIGKILL interrupts: free resources
  */
 int main() {
