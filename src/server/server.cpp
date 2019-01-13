@@ -1,7 +1,7 @@
 #include <netinet/in.h>
 #include <unistd.h>
 #include "server.h"
-#include "../../common/error.h"
+#include "../error/error.h"
 
 Server::Server() {
     create_socket();

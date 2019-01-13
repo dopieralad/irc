@@ -3,7 +3,7 @@
 #include <arpa/inet.h>
 #include <cstdio>
 #include "multiplexer.h"
-#include "../../common/error.h"
+#include "../error/error.h"
 
 Multiplexer::Multiplexer(
         int server_descriptor,
