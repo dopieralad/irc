@@ -5,6 +5,8 @@
 #include "multiplexer.h"
 #include "../error/error.h"
 
+// TODO: detect client disconnecting and close their descriptor
+
 Multiplexer::Multiplexer(
         int server_descriptor,
         bool (* read_function)(int),
@@ -99,11 +101,6 @@ void Multiplexer::check_writeability(int client_descriptor) {
 
         if (finished_writing) {
             FD_CLR(client_descriptor, &write_mask);
-
-            Error::guard(
-                    close(client_descriptor),
-                    "Could not close client descriptor!"
-            );
 
             if (client_descriptor == greatest_descriptor) {
                 while (!FD_ISSET(greatest_descriptor, &read_mask) &&
