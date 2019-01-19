@@ -7,10 +7,8 @@
 
 Multiplexer::Multiplexer() {
     FD_ZERO(&read_mask);
-    FD_ZERO(&process_mask);
     FD_ZERO(&write_mask);
 }
-
 
 void Multiplexer::set_server_descriptor(int descriptor) {
     this->server_descriptor = descriptor;
@@ -25,8 +23,6 @@ void Multiplexer::start() {
 
         for (int descriptor = server_descriptor + 1; descriptor <= greatest_descriptor; descriptor++) {
             check_readability(descriptor);
-
-            check_processability(descriptor);
 
             check_writeability(descriptor);
         }
@@ -74,18 +70,6 @@ void Multiplexer::check_readability(int client_descriptor) {
 
         if (finished_reading) {
             FD_CLR(client_descriptor, &read_mask);
-            FD_SET(client_descriptor, &process_mask);
-        }
-    }
-}
-
-void Multiplexer::check_processability(int client_descriptor) {
-    if (FD_ISSET(client_descriptor, &process_mask)) {
-        bool finished_processing = process_client(client_descriptor);
-
-        if (finished_processing) {
-            FD_CLR(client_descriptor, &process_mask);
-            FD_SET(client_descriptor, &write_mask);
         }
     }
 }

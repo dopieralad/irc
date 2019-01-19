@@ -21,12 +21,9 @@ private:
     int greatest_descriptor;
 
     fd_set read_mask;
-    fd_set process_mask;
     fd_set write_mask;
 
     bool (* read_from_client)(int);
-
-    bool (* process_client)(int);
 
     bool (* write_to_client)(int);
 
@@ -37,8 +34,6 @@ private:
     void check_incoming_connection();
 
     void check_readability(int client_descriptor);
-
-    void check_processability(int client_descriptor);
 
     void check_writeability(int client_descriptor);
 };
