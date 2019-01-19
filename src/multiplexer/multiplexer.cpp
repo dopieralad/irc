@@ -39,7 +39,7 @@ void Multiplexer::start() {
 void Multiplexer::wait_for_ready_descriptors() {
     FD_SET(server_descriptor, &read_mask); // Always listen for new connections to the server
 
-    Error::check(
+    Error::guard(
             select(greatest_descriptor + 1, &read_mask, &write_mask, nullptr, nullptr),
             "Could not select descriptors!"
     );
@@ -49,8 +49,8 @@ int Multiplexer::establish_connection() {
     sockaddr_in client_address{};
     socklen_t address_size = sizeof(client_address);
 
-    int client_descriptor = Error::check(
-            accept(server_descriptor, (struct sockaddr*) &client_address, &address_size),
+    int client_descriptor = Error::guard(
+            accept(server_descriptor, (struct sockaddr *) &client_address, &address_size),
             "Could not accept incoming connection!"
     );
 
@@ -100,7 +100,7 @@ void Multiplexer::check_writeability(int client_descriptor) {
         if (finished_writing) {
             FD_CLR(client_descriptor, &write_mask);
 
-            Error::check(
+            Error::guard(
                     close(client_descriptor),
                     "Could not close client descriptor!"
             );

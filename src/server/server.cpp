@@ -9,14 +9,14 @@ Server::Server() {
 }
 
 void Server::create_socket() {
-    server_descriptor = Error::check(
+    server_descriptor = Error::guard(
             socket(PF_INET, SOCK_STREAM, 0),
             "Could not create socket!"
     );
 
     int is_on = 1;
-    Error::check(
-            setsockopt(server_descriptor, SOL_SOCKET, SO_REUSEADDR, (char*) &is_on, sizeof(is_on)),
+    Error::guard(
+            setsockopt(server_descriptor, SOL_SOCKET, SO_REUSEADDR, (char *) &is_on, sizeof(is_on)),
             "Could not set socket options!"
     );
 }
@@ -28,12 +28,12 @@ void Server::create_address() {
 }
 
 void Server::start() {
-    Error::check(
-            bind(server_descriptor, (struct sockaddr*) &server_address, sizeof(server_address)),
+    Error::guard(
+            bind(server_descriptor, (struct sockaddr *) &server_address, sizeof(server_address)),
             "Could not bind socket!"
     );
 
-    Error::check(
+    Error::guard(
             listen(server_descriptor, 10),
             "Could not listen on socket!"
     );
@@ -44,7 +44,7 @@ int Server::get_descriptor() const {
 }
 
 Server::~Server() {
-    Error::check(
+    Error::guard(
             close(server_descriptor),
             "Could not close socket!"
     );

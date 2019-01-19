@@ -5,7 +5,7 @@
 class Error {
 
 public:
-    static int check(int result, const char* message);
+    static int guard(int result, const char *message);
 };
 
 
