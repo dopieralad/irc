@@ -66,6 +66,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/virzen/Workspace/irc/src/connection_accepter/connection_accepter.cpp">
+			<Option target="IRC_SERVER"/>
+		</Unit>
+		<Unit filename="/home/virzen/Workspace/irc/src/connection_accepter/connection_accepter.h">
+			<Option target="IRC_SERVER"/>
+		</Unit>
 		<Unit filename="/home/virzen/Workspace/irc/src/error/error.cpp">
 			<Option target="IRC_SERVER"/>
 		</Unit>
@@ -79,12 +85,6 @@
 			<Option target="IRC_SERVER"/>
 		</Unit>
 		<Unit filename="/home/virzen/Workspace/irc/src/multiplexer/multiplexer.h">
-			<Option target="IRC_SERVER"/>
-		</Unit>
-		<Unit filename="/home/virzen/Workspace/irc/src/server/server.cpp">
-			<Option target="IRC_SERVER"/>
-		</Unit>
-		<Unit filename="/home/virzen/Workspace/irc/src/server/server.h">
 			<Option target="IRC_SERVER"/>
 		</Unit>
 		<Unit filename="/home/virzen/Workspace/irc/CMakeLists.txt">

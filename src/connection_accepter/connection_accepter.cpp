@@ -1,14 +1,14 @@
 #include <netinet/in.h>
 #include <unistd.h>
-#include "server.h"
+#include "connection_accepter.h"
 #include "../error/error.h"
 
-Server::Server() {
+ConnectionAccepter::ConnectionAccepter() {
     create_socket();
     create_address();
 }
 
-void Server::create_socket() {
+void ConnectionAccepter::create_socket() {
     server_descriptor = Error::guard(
             socket(PF_INET, SOCK_STREAM, 0),
             "Could not create socket!"
@@ -21,13 +21,13 @@ void Server::create_socket() {
     );
 }
 
-void Server::create_address() {
+void ConnectionAccepter::create_address() {
     server_address.sin_family = PF_INET;
     server_address.sin_port = htons(6667);
     server_address.sin_addr.s_addr = INADDR_ANY;
 }
 
-void Server::start() {
+void ConnectionAccepter::start() {
     Error::guard(
             bind(server_descriptor, (struct sockaddr *) &server_address, sizeof(server_address)),
             "Could not bind socket!"
@@ -39,11 +39,11 @@ void Server::start() {
     );
 }
 
-int Server::get_descriptor() const {
+int ConnectionAccepter::get_descriptor() const {
     return server_descriptor;
 }
 
-Server::~Server() {
+ConnectionAccepter::~ConnectionAccepter() {
     Error::guard(
             close(server_descriptor),
             "Could not close socket!"

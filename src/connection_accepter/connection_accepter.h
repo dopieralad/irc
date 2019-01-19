@@ -1,17 +1,17 @@
-#ifndef IRC_SERVER_H
-#define IRC_SERVER_H
+#ifndef IRC_CONNECTION_ACCEPTER_H
+#define IRC_CONNECTION_ACCEPTER_H
 
 
-class Server {
+class ConnectionAccepter {
 
 public:
-    Server();
+    ConnectionAccepter();
 
     void start();
 
     int get_descriptor() const;
 
-    virtual ~Server();
+    virtual ~ConnectionAccepter();
 
 private:
     int server_descriptor;
@@ -23,4 +23,4 @@ private:
 };
 
 
-#endif //IRC_SERVER_H
+#endif //IRC_CONNECTION_ACCEPTER_H

@@ -7,7 +7,7 @@ add_executable(IRC_SERVER
         src/main.cpp
         src/error/error.cpp
         src/error/error.h
-        src/server/server.cpp
-        src/server/server.h
+        src/connection_accepter/connection_accepter.cpp
+        src/connection_accepter/connection_accepter.h
         src/multiplexer/multiplexer.cpp
         src/multiplexer/multiplexer.h)

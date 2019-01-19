@@ -10,7 +10,7 @@
 #include <signal.h>
 #include <sys/select.h>
 #include "multiplexer/multiplexer.h"
-#include "server/server.h"
+#include "connection_accepter/connection_accepter.h"
 
 bool read_from_client(int client_descriptor) {
     printf("Reading descriptor: '%d'.\n", client_descriptor);
@@ -32,14 +32,14 @@ bool write_to_client(int client_descriptor) {
  * TODO Add handling of SIGTERM and SIGKILL interrupts: free resources
  */
 int main() {
-    auto* server = new Server();
-    auto* multiplexer = new Multiplexer(server->get_descriptor(), read_from_client, process_client, write_to_client);
+    auto* connection_accepter = new ConnectionAccepter();
+    auto* multiplexer = new Multiplexer(connection_accepter->get_descriptor(), read_from_client, process_client, write_to_client);
 
-    server->start();
+    connection_accepter->start();
     multiplexer->start();
 
     delete multiplexer;
-    delete server;
+    delete connection_accepter;
 
     return EXIT_SUCCESS;
 }
