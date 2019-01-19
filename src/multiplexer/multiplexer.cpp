@@ -5,21 +5,16 @@
 #include "multiplexer.h"
 #include "../error/error.h"
 
-// TODO: detect client disconnecting and close their descriptor
-
-Multiplexer::Multiplexer(
-        int server_descriptor,
-        bool (* read_function)(int),
-        bool (* process_function)(int),
-        bool (* write_function)(int)) :
-        server_descriptor(server_descriptor),
-        greatest_descriptor(server_descriptor),
-        read_from_client(read_function),
-        process_client(process_function),
-        write_to_client(write_function) {
+Multiplexer::Multiplexer() {
     FD_ZERO(&read_mask);
     FD_ZERO(&process_mask);
     FD_ZERO(&write_mask);
+}
+
+
+void Multiplexer::set_server_descriptor(int descriptor) {
+    this->server_descriptor = descriptor;
+    this->greatest_descriptor = descriptor;
 }
 
 void Multiplexer::start() {

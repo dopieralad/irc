@@ -1,6 +1,7 @@
 #ifndef IRC_CONNECTION_ACCEPTER_H
 #define IRC_CONNECTION_ACCEPTER_H
 
+#include <arpa/inet.h>
 
 class ConnectionAccepter {
 

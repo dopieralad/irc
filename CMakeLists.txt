@@ -10,4 +10,6 @@ add_executable(IRC_SERVER
         src/connection_accepter/connection_accepter.cpp
         src/connection_accepter/connection_accepter.h
         src/multiplexer/multiplexer.cpp
-        src/multiplexer/multiplexer.h)
+        src/multiplexer/multiplexer.h
+        src/server/server.cpp
+        src/server/server.h)

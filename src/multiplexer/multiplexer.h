@@ -1,14 +1,15 @@
 #ifndef IRC_MULTIPLEXER_H
 #define IRC_MULTIPLEXER_H
 
-
 #include <sys/param.h>
 
 class Multiplexer {
 
 public:
 
-    Multiplexer(int server_descriptor, bool (* read_function)(int), bool (* process_function)(int), bool (* write_function)(int));
+    explicit Multiplexer();
+
+    void set_server_descriptor(int descriptor);
 
     void start();
 
