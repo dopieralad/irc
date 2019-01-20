@@ -31,6 +31,9 @@ void Multiplexer::start() {
 
 void Multiplexer::wait_for_ready_descriptors() {
     FD_SET(server_descriptor, &read_mask); // Always listen for new connections to the server
+    for (int client_descriptor : open_connections) { // Listen for data from already connected clients
+        FD_SET(client_descriptor, &read_mask);
+    }
 
     Error::guard(
             select(greatest_descriptor + 1, &read_mask, &write_mask, nullptr, nullptr),
@@ -46,6 +49,7 @@ int Multiplexer::establish_connection() {
             accept(server_descriptor, (struct sockaddr *) &client_address, &address_size),
             "Could not accept incoming connection!"
     );
+    open_connections.push_back(client_descriptor);
 
     printf("New connection from address: '%s:%d'.\n", inet_ntoa(client_address.sin_addr), client_address.sin_port);
 
