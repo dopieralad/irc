@@ -12,4 +12,4 @@ add_executable(IRC_SERVER
         src/multiplexer/multiplexer.cpp
         src/multiplexer/multiplexer.h
         src/server/server.cpp
-        src/server/server.h)
+        src/server/server.h src/types.h)

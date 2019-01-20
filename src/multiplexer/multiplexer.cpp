@@ -2,6 +2,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <cstdio>
+#include <string>
 #include "multiplexer.h"
 #include "../error/error.h"
 
@@ -15,6 +16,10 @@ void Multiplexer::set_server_descriptor(int descriptor) {
     this->greatest_descriptor = descriptor;
 }
 
+void Multiplexer::set_read_from_client(read_function read_from_client) {
+    this->read_from_client = read_from_client;
+};
+
 void Multiplexer::start() {
     while (started) {
         wait_for_ready_descriptors();
@@ -22,6 +27,8 @@ void Multiplexer::start() {
         check_incoming_connection();
 
         for (int descriptor = server_descriptor + 1; descriptor <= greatest_descriptor; descriptor++) {
+            check_errors(descriptor);
+
             check_readability(descriptor);
 
             check_writeability(descriptor);

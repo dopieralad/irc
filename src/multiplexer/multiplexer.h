@@ -1,7 +1,9 @@
 #ifndef IRC_MULTIPLEXER_H
 #define IRC_MULTIPLEXER_H
 
+#include <functional>
 #include <sys/param.h>
+#include "../types.h"
 
 class Multiplexer {
 
@@ -10,6 +12,7 @@ public:
     explicit Multiplexer();
 
     void set_server_descriptor(int descriptor);
+    void set_read_from_client(read_function);
 
     void start();
 
@@ -23,7 +26,9 @@ private:
     fd_set read_mask;
     fd_set write_mask;
 
-    bool (* read_from_client)(int);
+    std::vector<int> open_connections;
+
+    read_function read_from_client;
 
     bool (* write_to_client)(int);
 
@@ -36,6 +41,8 @@ private:
     void check_readability(int client_descriptor);
 
     void check_writeability(int client_descriptor);
+
+    void check_errors(int client_descriptor);
 };
 
 

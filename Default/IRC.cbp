@@ -111,6 +111,9 @@
 		<Unit filename="/home/virzen/Workspace/irc/src/server/server.h">
 			<Option target="IRC_SERVER"/>
 		</Unit>
+		<Unit filename="/home/virzen/Workspace/irc/src/types.h">
+			<Option target="IRC_SERVER"/>
+		</Unit>
 		<Unit filename="/home/virzen/Workspace/irc/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
