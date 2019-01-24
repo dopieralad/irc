@@ -12,7 +12,7 @@ Server::Server() {
     int server_descriptor = connection_accepter.get_descriptor();
     multiplexer.set_server_descriptor(server_descriptor);
 
-    multiplexer.set_read_from_client([this](int client_descriptor) -> bool {
+    multiplexer.set_read_from_client([this](int client_descriptor) -> void {
         if (this->messages_in_progress.count(client_descriptor) == 0) {
             this->create_new_message_in_progress(client_descriptor);
         }
@@ -31,11 +31,7 @@ Server::Server() {
             this->incoming_message_callback(client_descriptor, messageInProgress->get_message());
 
             this->messages_in_progress.erase(client_descriptor);
-
-            return true;
         }
-
-        return false;
     });
 }
 

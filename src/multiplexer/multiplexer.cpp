@@ -75,11 +75,7 @@ void Multiplexer::check_incoming_connection() {
 
 void Multiplexer::check_readability(int client_descriptor) {
     if (FD_ISSET(client_descriptor, &read_mask)) {
-        bool finished_reading = read_from_client(client_descriptor);
-
-        if (finished_reading) {
-            FD_CLR(client_descriptor, &read_mask);
-        }
+        read_from_client(client_descriptor);
     }
 }
 
