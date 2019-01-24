@@ -8,16 +8,18 @@
 
 #include <string>
 
-class ReadMessageInProgress {
+class ReadMessageBuffer {
 
 public:
-    explicit ReadMessageInProgress(int desired_size);
+    explicit ReadMessageBuffer(int desired_size);
 
-    bool is_complete();
+    bool has_been_read_completely();
 
     std::string get_message();
 
     void append(char* chars, int length);
+
+    void read_some(int i);
 
 private:
     std::string message;

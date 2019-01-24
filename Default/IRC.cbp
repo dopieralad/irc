@@ -105,10 +105,10 @@
 		<Unit filename="/home/virzen/Workspace/irc/src/multiplexer/multiplexer.h">
 			<Option target="IRC_SERVER"/>
 		</Unit>
-		<Unit filename="/home/virzen/Workspace/irc/src/read_message_in_progress/ReadMessageInProgress.cpp">
+		<Unit filename="/home/virzen/Workspace/irc/src/read_message_in_progress/ReadMessageBuffer.cpp">
 			<Option target="IRC_SERVER"/>
 		</Unit>
-		<Unit filename="/home/virzen/Workspace/irc/src/read_message_in_progress/ReadMessageInProgress.h">
+		<Unit filename="/home/virzen/Workspace/irc/src/read_message_in_progress/ReadMessageBuffer.h">
 			<Option target="IRC_SERVER"/>
 		</Unit>
 		<Unit filename="/home/virzen/Workspace/irc/src/server/server.cpp">
@@ -120,10 +120,10 @@
 		<Unit filename="/home/virzen/Workspace/irc/src/types.h">
 			<Option target="IRC_SERVER"/>
 		</Unit>
-		<Unit filename="/home/virzen/Workspace/irc/src/written_message_in_progress/WrittenMessageInProgress.cpp">
+		<Unit filename="/home/virzen/Workspace/irc/src/written_message_in_progress/WrittenMessageBuffer.cpp">
 			<Option target="IRC_SERVER"/>
 		</Unit>
-		<Unit filename="/home/virzen/Workspace/irc/src/written_message_in_progress/WrittenMessageInProgress.h">
+		<Unit filename="/home/virzen/Workspace/irc/src/written_message_in_progress/WrittenMessageBuffer.h">
 			<Option target="IRC_SERVER"/>
 		</Unit>
 		<Unit filename="/home/virzen/Workspace/irc/CMakeLists.txt">

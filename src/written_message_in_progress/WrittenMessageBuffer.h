@@ -4,18 +4,18 @@
 
 #include <string>
 
-class WrittenMessageInProgress {
+class WrittenMessageBuffer {
 
 public:
-    explicit WrittenMessageInProgress(std::string message);
+    explicit WrittenMessageBuffer(std::string message);
 
-    bool write_some(int descriptor);
+    void write_some(int descriptor);
+
+    bool has_been_written_completely();
 
 private:
     int written_bytes = 0;
     std::string message;
-
-    bool has_been_written_completely();
 };
 
 
