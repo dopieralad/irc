@@ -12,4 +12,4 @@ add_executable(IRC_SERVER
         src/multiplexer/multiplexer.cpp
         src/multiplexer/multiplexer.h
         src/server/server.cpp
-        src/server/server.h src/types.h src/message_in_progress/MessageInProgress.cpp src/message_in_progress/MessageInProgress.h)
+        src/server/server.h src/types.h src/read_message_in_progress/ReadMessageInProgress.cpp src/read_message_in_progress/ReadMessageInProgress.h src/written_message_in_progress/WrittenMessageInProgress.cpp src/written_message_in_progress/WrittenMessageInProgress.h)

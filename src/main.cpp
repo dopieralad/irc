@@ -10,8 +10,9 @@
 int main() {
     Server server;
 
-    server.on_message([](int client_id, std::string message) -> void {
+    server.on_message([&server](int client_id, std::string message) -> void {
         std::cout << "<" << client_id << ">: " << message << std::endl;
+        server.send_message_to_client(client_id, message);
     });
 
     server.start();

@@ -8,10 +8,10 @@
 
 #include <string>
 
-class MessageInProgress {
+class ReadMessageInProgress {
 
 public:
-    explicit MessageInProgress(int desired_size);
+    explicit ReadMessageInProgress(int desired_size);
 
     bool is_complete();
 

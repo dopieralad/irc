@@ -2,21 +2,21 @@
 // Created by virzen on 24.01.19.
 //
 
-#include "MessageInProgress.h"
+#include "ReadMessageInProgress.h"
 
-MessageInProgress::MessageInProgress(int desired_size) {
+ReadMessageInProgress::ReadMessageInProgress(int desired_size) {
     this->desired_size = desired_size;
 }
 
-bool MessageInProgress::is_complete() {
+bool ReadMessageInProgress::is_complete() {
     return desired_size == message.size();
 }
 
-std::string MessageInProgress::get_message() {
+std::string ReadMessageInProgress::get_message() {
     return message;
 }
 
-void MessageInProgress::append(char *chars, int length) {
+void ReadMessageInProgress::append(char *chars, int length) {
     int chars_to_add = length;
 
     // insert only as many characters as is left to the desired size

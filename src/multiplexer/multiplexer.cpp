@@ -20,6 +20,10 @@ void Multiplexer::set_read_from_client(read_function read_from_client) {
     this->read_from_client = read_from_client;
 };
 
+void Multiplexer::set_write_to_client(write_function write_to_client) {
+    this->write_to_client = write_to_client;
+};
+
 void Multiplexer::start() {
     while (started) {
         wait_for_ready_descriptors();
@@ -81,18 +85,22 @@ void Multiplexer::check_readability(int client_descriptor) {
 
 void Multiplexer::check_writeability(int client_descriptor) {
     if (FD_ISSET(client_descriptor, &write_mask)) {
-        bool finished_writing = write_to_client(client_descriptor);
+        write_to_client(client_descriptor);
+    }
+}
 
-        if (finished_writing) {
-            FD_CLR(client_descriptor, &write_mask);
+void Multiplexer::stop_writing_to(int client_descriptor) {
+    FD_CLR(client_descriptor, &write_mask);
 
-            if (client_descriptor == greatest_descriptor) {
-                while (!FD_ISSET(greatest_descriptor, &read_mask) &&
-                       !FD_ISSET(greatest_descriptor, &write_mask) &&
-                       greatest_descriptor > server_descriptor) {
-                    greatest_descriptor--;
-                }
-            }
+    if (client_descriptor == greatest_descriptor) {
+        while (!FD_ISSET(greatest_descriptor, &read_mask) &&
+               !FD_ISSET(greatest_descriptor, &write_mask) &&
+               greatest_descriptor > server_descriptor) {
+            greatest_descriptor--;
         }
     }
+}
+
+void Multiplexer::start_writing_to(int client_descriptor) {
+    FD_SET(client_descriptor, &write_mask);
 }

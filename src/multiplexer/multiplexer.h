@@ -13,8 +13,13 @@ public:
 
     void set_server_descriptor(int descriptor);
     void set_read_from_client(read_function);
+    void set_write_to_client(write_function);
 
     void start();
+
+    void stop_writing_to(int client_descriptor);
+
+    void start_writing_to(int client_descriptor);
 
 private:
 
@@ -30,7 +35,7 @@ private:
 
     read_function read_from_client;
 
-    bool (* write_to_client)(int);
+    write_function write_to_client;
 
     void wait_for_ready_descriptors();
 
