@@ -27,8 +27,6 @@ void Multiplexer::start() {
         check_incoming_connection();
 
         for (int descriptor = server_descriptor + 1; descriptor <= greatest_descriptor; descriptor++) {
-            check_errors(descriptor);
-
             check_readability(descriptor);
 
             check_writeability(descriptor);

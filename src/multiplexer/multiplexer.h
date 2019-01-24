@@ -41,8 +41,6 @@ private:
     void check_readability(int client_descriptor);
 
     void check_writeability(int client_descriptor);
-
-    void check_errors(int client_descriptor);
 };
 
 

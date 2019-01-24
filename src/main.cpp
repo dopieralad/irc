@@ -10,8 +10,8 @@
 int main() {
     Server server;
 
-    server.on_message([](int client_id, char* message[]) -> void {
-        printf("<%d>: %s\n", client_id, message);
+    server.on_message([](int client_id, std::string message) -> void {
+        std::cout << "<" << client_id << ">: " << message << std::endl;
     });
 
     server.start();

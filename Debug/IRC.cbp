@@ -99,6 +99,12 @@
 		<Unit filename="/home/virzen/Workspace/irc/src/main.cpp">
 			<Option target="IRC_SERVER"/>
 		</Unit>
+		<Unit filename="/home/virzen/Workspace/irc/src/message_in_progress/MessageInProgress.cpp">
+			<Option target="IRC_SERVER"/>
+		</Unit>
+		<Unit filename="/home/virzen/Workspace/irc/src/message_in_progress/MessageInProgress.h">
+			<Option target="IRC_SERVER"/>
+		</Unit>
 		<Unit filename="/home/virzen/Workspace/irc/src/multiplexer/multiplexer.cpp">
 			<Option target="IRC_SERVER"/>
 		</Unit>
