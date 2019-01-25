@@ -84,6 +84,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/virzen/Workspace/irc/src/channel/Channel.cpp">
+			<Option target="IRC_SERVER"/>
+		</Unit>
+		<Unit filename="/home/virzen/Workspace/irc/src/channel/Channel.h">
+			<Option target="IRC_SERVER"/>
+		</Unit>
 		<Unit filename="/home/virzen/Workspace/irc/src/connection_accepter/connection_accepter.cpp">
 			<Option target="IRC_SERVER"/>
 		</Unit>
@@ -127,6 +133,12 @@
 			<Option target="IRC_SERVER"/>
 		</Unit>
 		<Unit filename="/home/virzen/Workspace/irc/src/server/server.h">
+			<Option target="IRC_SERVER"/>
+		</Unit>
+		<Unit filename="/home/virzen/Workspace/irc/src/storage/Storage.cpp">
+			<Option target="IRC_SERVER"/>
+		</Unit>
+		<Unit filename="/home/virzen/Workspace/irc/src/storage/Storage.h">
 			<Option target="IRC_SERVER"/>
 		</Unit>
 		<Unit filename="/home/virzen/Workspace/irc/src/types.h">

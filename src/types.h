@@ -12,4 +12,9 @@ typedef std::function<bool(int)> write_function;
 
 enum MessageType { text_message, login_command, join_command, unknown_command };
 
+struct Client {
+    int id;
+    std::string name;
+};
+
 #endif //IRC_TYPES_H
