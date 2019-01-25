@@ -5,6 +5,7 @@
 #include <string>
 #include "multiplexer.h"
 #include "../error/error.h"
+#include <algorithm>
 
 Multiplexer::Multiplexer() {
     FD_ZERO(&read_mask);
@@ -13,7 +14,6 @@ Multiplexer::Multiplexer() {
 
 void Multiplexer::set_server_descriptor(int descriptor) {
     this->server_descriptor = descriptor;
-    this->greatest_descriptor = descriptor;
 }
 
 void Multiplexer::set_read_from_client(read_function read_from_client) {
@@ -30,10 +30,10 @@ void Multiplexer::start() {
 
         check_incoming_connection();
 
-        for (int descriptor = server_descriptor + 1; descriptor <= greatest_descriptor; descriptor++) {
-            check_readability(descriptor);
+        for (int client_descriptor : open_connections) {
+            check_readability(client_descriptor);
 
-            check_writeability(descriptor);
+            check_writeability(client_descriptor);
         }
     }
 }
@@ -45,7 +45,7 @@ void Multiplexer::wait_for_ready_descriptors() {
     }
 
     Error::guard(
-            select(greatest_descriptor + 1, &read_mask, &write_mask, nullptr, nullptr),
+            select(greatest_descriptor() + 1, &read_mask, &write_mask, nullptr, nullptr),
             "Could not select descriptors!"
     );
 }
@@ -70,10 +70,6 @@ void Multiplexer::check_incoming_connection() {
         int client_descriptor = establish_connection();
 
         FD_SET(client_descriptor, &read_mask);
-
-        if (client_descriptor > greatest_descriptor) {
-            greatest_descriptor = client_descriptor;
-        }
     }
 }
 
@@ -91,16 +87,18 @@ void Multiplexer::check_writeability(int client_descriptor) {
 
 void Multiplexer::stop_writing_to(int client_descriptor) {
     FD_CLR(client_descriptor, &write_mask);
-
-    if (client_descriptor == greatest_descriptor) {
-        while (!FD_ISSET(greatest_descriptor, &read_mask) &&
-               !FD_ISSET(greatest_descriptor, &write_mask) &&
-               greatest_descriptor > server_descriptor) {
-            greatest_descriptor--;
-        }
-    }
 }
 
 void Multiplexer::start_writing_to(int client_descriptor) {
     FD_SET(client_descriptor, &write_mask);
+}
+
+int Multiplexer::greatest_descriptor() {
+    auto max = max_element(std::begin(open_connections), std::end(open_connections));
+
+    if (max == open_connections.end()) {
+        return server_descriptor;
+    }
+
+    return *max;
 }

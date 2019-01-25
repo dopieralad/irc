@@ -26,7 +26,6 @@ private:
     bool started = true;
 
     int server_descriptor;
-    int greatest_descriptor;
 
     fd_set read_mask;
     fd_set write_mask;
@@ -46,6 +45,8 @@ private:
     void check_readability(int client_descriptor);
 
     void check_writeability(int client_descriptor);
+
+    int greatest_descriptor();
 };
 
 
