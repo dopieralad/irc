@@ -81,8 +81,11 @@ void Storage::add_client_to_channel(struct Client *client, Channel *channel) {
     channel->add_client(client);
 }
 
-void Storage::remove_client_from_channel(Client *client, Channel *channel) {
-    channel->remove_client(client);
+void Storage::remove_client(Client *client) {
+    Channel* clients_channel = get_channel_of_client(client);
+    clients_channel->remove_client(client);
+
+    clients.erase(std::remove(clients.begin(), clients.end(), client));
 }
 
 

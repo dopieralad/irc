@@ -73,7 +73,7 @@ void MessageHandler::receive_message(int client_id, std::string raw_message) {
             Client *client = storage->get_client_with_id(client_id);
             Channel *channel = storage->get_channel_of_client(client);
 
-            storage->remove_client_from_channel(client, channel);
+            storage->remove_client(client);
 
             send_message_to_channel(
                     channel,

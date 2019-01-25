@@ -25,7 +25,7 @@ public:
 
     Channel *get_or_create_channel(std::string basic_string);
 
-    void remove_client_from_channel(Client *pClient, Channel *pChannel);
+    void remove_client(Client *client);
 
 private:
     Channel* default_channel;
