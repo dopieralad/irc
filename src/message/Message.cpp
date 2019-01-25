@@ -3,8 +3,14 @@
 const char COMMAND_PREFIX = '/';
 const std::string LOGIN_COMMAND_NAME("login");
 const std::string JOIN_COMMAND_NAME("join");
+const int max_command_size = 6; // TODO: calculate based on commands
 
 Message::Message(std::string raw_message) {
+    // ensure no out-of-range exception
+    if (raw_message.length() < max_command_size + 1) {  // + 1 because there is a space after the command
+        raw_message.resize(max_command_size + 1);
+    }
+
     bool is_command = raw_message[0] == COMMAND_PREFIX;
 
     if (!is_command) {
