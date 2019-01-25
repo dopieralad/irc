@@ -69,11 +69,11 @@ void MessageHandler::receive_message(int client_id, std::string raw_message) {
 
 // TODO: extract?
 std::string MessageHandler::format_message(std::string client_name, std::string message) {
-    return "<" + client_name + ">: " + message;
+    return "<" + client_name + ">: " + message + "\n";
 }
 
 std::string MessageHandler::get_welcome_message(std::string channel_name, std::string client_name) {
-    return client_name + " joined " + channel_name;
+    return client_name + " joined " + channel_name + "\n";
 }
 
 void MessageHandler::send_message_to_channel(Channel* channel, std::string message) {
