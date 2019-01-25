@@ -1,11 +1,7 @@
 #include "Storage.h"
 
 Storage::Storage() {
-    Channel* default_channel = new Channel("default");
-
-    this->default_channel = default_channel;
-
-    channels.push_back(default_channel);
+    default_channel = get_or_create_channel("default");
 };
 
 
@@ -20,7 +16,10 @@ struct Channel* Storage::get_default_channel() {
     return default_channel;
 }
 
-void Storage::add_client_to_channel(struct Client* client, struct Channel* channel) {
+void Storage::move_client_to_channel(struct Client *client, struct Channel *channel) {
+    Channel* current_channel = get_channel_of_client(client);
+    current_channel->remove_client(client);
+
     channel->add_client(client);
 }
 
@@ -46,10 +45,8 @@ struct Client* Storage::get_client_with_id(int client_id) {
 
 Channel* Storage::get_channel_of_client(Client* client_to_look_for) {
     for (Channel* channel : channels) {
-        for (struct Client* client : clients) {
-            if (client->id == client_to_look_for->id) {
-                return channel;
-            }
+        if (channel->is_client_in_it(client_to_look_for)) {
+            return channel;
         }
     }
 
@@ -64,6 +61,24 @@ Storage::~Storage() {
     for (struct Client* client : clients) {
         delete client;
     }
+}
+
+Channel *Storage::get_or_create_channel(std::string channel_name) {
+    for (Channel* channel : channels) {
+        if (channel->get_name() == channel_name) {
+            return channel;
+        }
+    }
+
+    Channel *channel = new Channel(channel_name);
+
+    channels.push_back(channel);
+
+    return channel;
+}
+
+void Storage::add_client_to_channel(struct Client *client, Channel *channel) {
+    channel->add_client(client);
 }
 
 

@@ -46,10 +46,20 @@ void MessageHandler::receive_message(int client_id, std::string raw_message) {
             return;
         }
         case join_command: {
-            // check if channels with the name exists
-            // create if it doesn't
-            // join client to the channel
-            // send info that client joined to that channel
+            if (message.get_content().empty()) {
+                send_message_to_client_id(client_id, "You need to enter the channel name. Usage: /join <channel name>");
+                return;
+            }
+
+            Channel* channel = storage->get_or_create_channel(message.get_content());
+            Client* client = storage->get_client_with_id(client_id);
+            storage->move_client_to_channel(client, channel);
+
+            send_message_to_channel(
+                    channel,
+                    get_welcome_message(channel->get_name(), client->name)
+            );
+
             return;
         }
 //        case leave_command:

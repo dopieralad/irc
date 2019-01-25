@@ -12,7 +12,8 @@ public:
 
     struct Client* create_client(int client_descriptor, std::string message);
     Channel* get_default_channel();
-    void add_client_to_channel(struct Client* client, struct Channel* channel);
+    void move_client_to_channel(struct Client *client, Channel *channel);
+    void add_client_to_channel(struct Client *client, Channel *channel);
 
     bool is_client_with_id_logged_in(int client_id);
 
@@ -21,6 +22,8 @@ public:
     Channel* get_channel_of_client(Client* client_to_look_for);
 
     ~Storage();
+
+    Channel *get_or_create_channel(std::string basic_string);
 
 private:
     Channel* default_channel;
