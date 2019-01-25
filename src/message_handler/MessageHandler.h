@@ -6,6 +6,8 @@
 
 typedef std::function<void(std::vector<int>, std::string message)> send_message_to_clients_function;
 
+const std::string UKNOWN_COMMAND_WARNING("Uknown command.");
+
 
 class MessageHandler {
 

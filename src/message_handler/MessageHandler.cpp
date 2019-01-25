@@ -30,7 +30,8 @@ void MessageHandler::receive_message(int client_id, std::string raw_message) {
 //
 //            return;
         case unknown_command:
-            // send warning to client
+            std::vector<int> client_ids = { client_id };
+            send_message_to_clients(client_ids, UKNOWN_COMMAND_WARNING);
             return;
     }
 }
