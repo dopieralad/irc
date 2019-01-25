@@ -20,8 +20,10 @@ void MessageHandler::receive_message(int client_id, std::string raw_message) {
 
     switch (message.get_type()) {
         case text_message: {
-            // get channel that client_id is on
-            // send a message to that channel
+            struct Client* client = storage->get_client_with_id(client_id);
+            Channel* channel_of_client = storage->get_channel_of_client(client);
+            send_message_to_channel(channel_of_client, format_message(client->name, message.get_content()));
+
             return;
         }
         case login_command: {

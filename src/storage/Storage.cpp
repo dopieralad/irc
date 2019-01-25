@@ -34,6 +34,28 @@ bool Storage::is_client_with_id_logged_in(int client_id) {
     return false;
 }
 
+struct Client* Storage::get_client_with_id(int client_id) {
+    for (struct Client* client : clients) {
+        if (client->id == client_id) {
+            return client;
+        }
+    }
+
+    throw std::invalid_argument("Client with id " + std::to_string(client_id) + " doesn't exist.");
+}
+
+Channel* Storage::get_channel_of_client(Client* client_to_look_for) {
+    for (Channel* channel : channels) {
+        for (struct Client* client : clients) {
+            if (client->id == client_to_look_for->id) {
+                return channel;
+            }
+        }
+    }
+
+    throw std::invalid_argument("Client with id " + std::to_string(client_to_look_for->id) + " is not on any channel.");
+}
+
 Storage::~Storage() {
     for (Channel* channel : channels) {
         delete channel;

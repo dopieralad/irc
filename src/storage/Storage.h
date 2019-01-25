@@ -16,6 +16,10 @@ public:
 
     bool is_client_with_id_logged_in(int client_id);
 
+    struct Client* get_client_with_id(int client_id);
+
+    Channel* get_channel_of_client(Client* client_to_look_for);
+
     ~Storage();
 
 private:
