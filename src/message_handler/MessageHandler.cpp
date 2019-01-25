@@ -51,13 +51,20 @@ void MessageHandler::receive_message(int client_id, std::string raw_message) {
                 return;
             }
 
-            Channel* channel = storage->get_or_create_channel(message.get_content());
             Client* client = storage->get_client_with_id(client_id);
-            storage->move_client_to_channel(client, channel);
+            Channel* previous_channel = storage->get_channel_of_client(client);
+
+            Channel* next_channel = storage->get_or_create_channel(message.get_content());
+            storage->move_client_to_channel(client, next_channel);
 
             send_message_to_channel(
-                    channel,
-                    get_welcome_message(channel->get_name(), client->name)
+                    previous_channel,
+                    get_goodbye_message(previous_channel->get_name(), client->name)
+            );
+
+            send_message_to_channel(
+                    next_channel,
+                    get_welcome_message(next_channel->get_name(), client->name)
             );
 
             return;
@@ -84,6 +91,10 @@ std::string MessageHandler::format_message(std::string client_name, std::string 
 
 std::string MessageHandler::get_welcome_message(std::string channel_name, std::string client_name) {
     return client_name + " joined " + channel_name + "\n";
+}
+
+std::string MessageHandler::get_goodbye_message(std::string channel_name, std::string client_name) {
+    return client_name + " left " + channel_name + "\n";
 }
 
 void MessageHandler::send_message_to_channel(Channel* channel, std::string message) {

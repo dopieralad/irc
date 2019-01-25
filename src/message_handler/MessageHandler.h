@@ -32,6 +32,8 @@ private:
     std::string format_message(std::string client_name, std::string message);
 
     std::string get_welcome_message(std::string channel_name, std::string client_name);
+
+    std::string get_goodbye_message(std::string basic_string, std::string basicString);
 };
 
 
