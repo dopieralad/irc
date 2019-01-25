@@ -65,4 +65,10 @@ void Server::send_message_to_client(int client_id, std::string message) {
     multiplexer.start_writing_to(client_id);
 }
 
+void Server::send_message_to_clients(std::vector<int> client_ids, std::string message) {
+    for (int client_id : client_ids) {
+        send_message_to_client(client_id, message);
+    }
+}
+
 

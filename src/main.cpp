@@ -3,16 +3,23 @@
 #include "server/server.h"
 #include "multiplexer/multiplexer.h"
 #include "connection_accepter/connection_accepter.h"
+#include "message_handler/MessageHandler.h"
 
 /**
  * TODO Add handling of SIGTERM and SIGKILL interrupts: free resources
  */
 int main() {
     Server server;
+    MessageHandler message_handler;
 
-    server.on_message([&server](int client_id, std::string message) -> void {
+    server.on_message([&server, &message_handler](int client_id, std::string message) -> void {
         std::cout << "<" << client_id << ">: " << message << std::endl;
-        server.send_message_to_client(client_id, message);
+
+        message_handler.receive_message(client_id, message);
+    });
+
+    message_handler.set_send_message_to_clients([&server](std::vector<int> client_ids, std::string message) {
+        server.send_message_to_clients(client_ids, message);
     });
 
     server.start();

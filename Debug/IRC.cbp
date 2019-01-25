@@ -99,6 +99,18 @@
 		<Unit filename="/home/virzen/Workspace/irc/src/main.cpp">
 			<Option target="IRC_SERVER"/>
 		</Unit>
+		<Unit filename="/home/virzen/Workspace/irc/src/message/Message.cpp">
+			<Option target="IRC_SERVER"/>
+		</Unit>
+		<Unit filename="/home/virzen/Workspace/irc/src/message/Message.h">
+			<Option target="IRC_SERVER"/>
+		</Unit>
+		<Unit filename="/home/virzen/Workspace/irc/src/message_handler/MessageHandler.cpp">
+			<Option target="IRC_SERVER"/>
+		</Unit>
+		<Unit filename="/home/virzen/Workspace/irc/src/message_handler/MessageHandler.h">
+			<Option target="IRC_SERVER"/>
+		</Unit>
 		<Unit filename="/home/virzen/Workspace/irc/src/multiplexer/multiplexer.cpp">
 			<Option target="IRC_SERVER"/>
 		</Unit>

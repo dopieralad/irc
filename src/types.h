@@ -10,4 +10,6 @@ typedef std::function<void(int)> read_function;
 
 typedef std::function<bool(int)> write_function;
 
+enum MessageType { text_message, login_command, join_command, unknown_command };
+
 #endif //IRC_TYPES_H

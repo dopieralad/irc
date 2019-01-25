@@ -15,7 +15,9 @@ public:
     void start();
     void on_message(message_callback);
 
-    void send_message_to_client(int client_id, std::string basic_string);
+    void send_message_to_client(int client_id, std::string message);
+
+    void send_message_to_clients(std::vector<int> client_ids, std::string message);
 
 private:
     ConnectionAccepter connection_accepter;
