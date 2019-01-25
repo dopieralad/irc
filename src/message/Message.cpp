@@ -2,8 +2,9 @@
 
 const char COMMAND_PREFIX = '/';
 const std::string LOGIN_COMMAND_NAME("login");
+const std::string DISCONNECT_COMMAND_NAME("disconnect");
 const std::string JOIN_COMMAND_NAME("join");
-const int max_command_size = 6; // TODO: calculate based on commands
+const int max_command_size = 10; // TODO: calculate based on commands
 
 Message::Message(std::string raw_message) {
     // ensure no out-of-range exception
@@ -29,6 +30,12 @@ Message::Message(std::string raw_message) {
     if (raw_message.compare(1, JOIN_COMMAND_NAME.size(), JOIN_COMMAND_NAME) == 0) {
         type = join_command;
         content = raw_message.substr(1 + JOIN_COMMAND_NAME.size() + 1);
+        return;
+    }
+
+    if (raw_message.compare(1, DISCONNECT_COMMAND_NAME.size(), DISCONNECT_COMMAND_NAME) == 0) {
+        type = disconnect_command;
+        content = "";
         return;
     }
 

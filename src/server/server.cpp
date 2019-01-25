@@ -71,4 +71,8 @@ void Server::send_message_to_clients(std::vector<int> client_ids, std::string me
     }
 }
 
+void Server::close_connection_with(int client_descriptor) {
+    multiplexer.close_connection_with(client_descriptor);
+}
+
 

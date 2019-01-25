@@ -21,6 +21,8 @@ public:
 
     void start_writing_to(int client_descriptor);
 
+    void close_connection_with(int client_descriptor);
+
 private:
 
     bool started = true;

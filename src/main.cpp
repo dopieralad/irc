@@ -24,6 +24,10 @@ int main() {
         server.send_message_to_clients(client_ids, message);
     });
 
+    message_handler.set_close_connection_with_client([&server](int client_id) -> void {
+        server.close_connection_with(client_id);
+    });
+
     server.start();
 
     return EXIT_SUCCESS;

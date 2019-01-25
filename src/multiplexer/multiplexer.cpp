@@ -102,3 +102,8 @@ int Multiplexer::greatest_descriptor() {
 
     return *max;
 }
+
+void Multiplexer::close_connection_with(int client_descriptor) {
+    open_connections.erase(std::remove(open_connections.begin(), open_connections.end(), client_descriptor));
+    close(client_descriptor);
+}

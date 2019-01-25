@@ -14,7 +14,7 @@ void MessageHandler::receive_message(int client_id, std::string raw_message) {
     bool is_login_command = message.get_type() == login_command;
 
     if (!is_client_logged_in && !is_login_command) {
-        send_message_to_client_id(client_id, "You need to log-in first. Try /login <nickname>");
+        send_message_to_client_id(client_id, "You need to log-in first. Try /login <nickname>\n");
         return;
     }
 
@@ -28,7 +28,7 @@ void MessageHandler::receive_message(int client_id, std::string raw_message) {
         }
         case login_command: {
             if (message.get_content().empty()) {
-                send_message_to_client_id(client_id, "You need to enter a nickname. Usage: /login <nickname>");
+                send_message_to_client_id(client_id, "You need to enter a nickname. Usage: /login <nickname>\n");
                 return;
             }
 
@@ -47,7 +47,7 @@ void MessageHandler::receive_message(int client_id, std::string raw_message) {
         }
         case join_command: {
             if (message.get_content().empty()) {
-                send_message_to_client_id(client_id, "You need to enter the channel name. Usage: /join <channel name>");
+                send_message_to_client_id(client_id, "You need to enter the channel name. Usage: /join <channel name>\n");
                 return;
             }
 
@@ -69,13 +69,21 @@ void MessageHandler::receive_message(int client_id, std::string raw_message) {
 
             return;
         }
-//        case leave_command:
-//            // remove client from channel
-//            // send info that client left to that channel
-//
-//            // close connection with the client?
-//
-//            return;
+        case disconnect_command: {
+            Client *client = storage->get_client_with_id(client_id);
+            Channel *channel = storage->get_channel_of_client(client);
+
+            storage->remove_client_from_channel(client, channel);
+
+            send_message_to_channel(
+                    channel,
+                    get_goodbye_message(channel->get_name(), client->name)
+            );
+
+            close_connection_with_client(client->id);
+
+            return;
+        }
         case unknown_command: {
             send_message_to_client_id(client_id, UKNOWN_COMMAND_WARNING);
             return;
@@ -109,5 +117,9 @@ void MessageHandler::send_message_to_client_id(int client_id, const std::string 
 
 void MessageHandler::set_send_message_to_clients_ids(send_message_to_clients_function send_message_to_clients) {
     this->send_message_to_clients_ids = send_message_to_clients;
+}
+
+void MessageHandler::set_close_connection_with_client(std::function<void(int)> close_connection_with_client) {
+    this->close_connection_with_client = close_connection_with_client;
 }
 

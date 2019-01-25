@@ -7,6 +7,7 @@
 #include "../storage/Storage.h"
 
 typedef std::function<void(std::vector<int>, std::string message)> send_message_to_clients_function;
+typedef std::function<void(int)> close_connection_function;
 
 const std::string UKNOWN_COMMAND_WARNING("Uknown command.");
 
@@ -20,10 +21,13 @@ public:
 
     void set_send_message_to_clients_ids(send_message_to_clients_function);
 
+    void set_close_connection_with_client(std::function<void(int)>);
+
 private:
     Storage* storage;
 
     send_message_to_clients_function send_message_to_clients_ids;
+    close_connection_function close_connection_with_client;
 
     void send_message_to_client_id(int client_id, std::string message);
 

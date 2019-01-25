@@ -19,6 +19,8 @@ public:
 
     void send_message_to_clients(std::vector<int> client_ids, std::string message);
 
+    void close_connection_with(int i);
+
 private:
     ConnectionAccepter connection_accepter;
     Multiplexer multiplexer;
