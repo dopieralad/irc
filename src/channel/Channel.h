@@ -9,13 +9,13 @@ class Channel {
 public:
     explicit Channel(std::string name);
 
-    void add_client(struct Client client);
+    void add_client(struct Client* client);
     std::vector<int> get_clients_ids();
     std::string get_name();
 
 private:
     std::string name;
-    std::vector<struct Client> clients;
+    std::vector<struct Client*> clients;
 };
 
 

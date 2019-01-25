@@ -4,7 +4,7 @@ Channel::Channel(std::string name): name(name) {
 
 }
 
-void Channel::add_client(struct Client client) {
+void Channel::add_client(struct Client* client) {
     clients.push_back(client);
 }
 
@@ -17,8 +17,8 @@ std::vector<int> Channel::get_clients_ids() {
             clients.begin(),
             clients.end(),
             clients_ids.begin(),
-            [](Client client) {
-                return client.id;
+            [](Client* client) {
+                return client->id;
             }
     );
 

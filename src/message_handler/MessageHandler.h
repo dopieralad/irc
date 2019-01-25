@@ -14,24 +14,24 @@ const std::string UKNOWN_COMMAND_WARNING("Uknown command.");
 class MessageHandler {
 
 public:
-    explicit MessageHandler(Storage storage);
+    explicit MessageHandler(Storage* storage);
 
     void receive_message(int client_id, std::string message);
 
-    void set_send_message_to_clients(send_message_to_clients_function);
+    void set_send_message_to_clients_ids(send_message_to_clients_function);
 
 private:
-    Storage storage;
+    Storage* storage;
 
     send_message_to_clients_function send_message_to_clients_ids;
 
-    void send_message_to_client_id(int client_id, const std::string message);
+    void send_message_to_client_id(int client_id, std::string message);
 
-    void send_message_to_channel(Channel channel, std::string);
+    void send_message_to_channel(Channel* channel, std::string);
 
-    std::string format_message(Client client, std::string message);
+    std::string format_message(std::string client_name, std::string message);
 
-    std::string get_welcome_message(Channel channel, struct Client client);
+    std::string get_welcome_message(std::string channel_name, std::string client_name);
 };
 
 

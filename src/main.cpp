@@ -12,7 +12,7 @@
 int main() {
     Server server;
     Storage storage;
-    MessageHandler message_handler(storage);
+    MessageHandler message_handler(&storage);
 
     server.on_message([&server, &message_handler](int client_id, std::string message) -> void {
         std::cout << "<" << client_id << ">: " << message << std::endl;
@@ -20,7 +20,7 @@ int main() {
         message_handler.receive_message(client_id, message);
     });
 
-    message_handler.set_send_message_to_clients([&server](std::vector<int> client_ids, std::string message) {
+    message_handler.set_send_message_to_clients_ids([&server](std::vector<int> client_ids, std::string message) {
         server.send_message_to_clients(client_ids, message);
     });
 
