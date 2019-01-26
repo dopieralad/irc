@@ -144,6 +144,12 @@
 		<Unit filename="/home/virzen/Workspace/irc/src/types.h">
 			<Option target="IRC_SERVER"/>
 		</Unit>
+		<Unit filename="/home/virzen/Workspace/irc/src/utils/Utils.cpp">
+			<Option target="IRC_SERVER"/>
+		</Unit>
+		<Unit filename="/home/virzen/Workspace/irc/src/utils/Utils.h">
+			<Option target="IRC_SERVER"/>
+		</Unit>
 		<Unit filename="/home/virzen/Workspace/irc/src/written_message_in_progress/WrittenMessageBuffer.cpp">
 			<Option target="IRC_SERVER"/>
 		</Unit>

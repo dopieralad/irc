@@ -25,4 +25,4 @@ add_executable(IRC_SERVER
         src/storage/Storage.cpp
         src/storage/Storage.h
         src/channel/Channel.cpp
-        src/channel/Channel.h)
+        src/channel/Channel.h src/utils/Utils.cpp src/utils/Utils.h)
