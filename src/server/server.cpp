@@ -1,4 +1,7 @@
 #include <unistd.h>
+#include <iomanip>
+#include <sstream>
+#include <iostream>
 #include "server.h"
 #include "../error/error.h"
 #include "../written_message_in_progress/WrittenMessageBuffer.h"
@@ -60,8 +63,18 @@ void Server::on_message(message_callback incoming_message_callback) {
     this->incoming_message_callback = incoming_message_callback;
 }
 
+std::string format_message(std::string raw_message) {
+    int length = raw_message.length();
+    std::ostringstream out;
+    out << std::internal << std::setfill('0') << std::setw(10) << length;
+    std::string padded_length = out.str();
+
+    return padded_length + raw_message;
+}
+
 void Server::send_message_to_client(int client_id, std::string message) {
-    this->messages_being_written[client_id] = new WrittenMessageBuffer(message);
+    std::string formatted_message = format_message(message);
+    this->messages_being_written[client_id] = new WrittenMessageBuffer(formatted_message);
     multiplexer.start_writing_to(client_id);
 }
 
