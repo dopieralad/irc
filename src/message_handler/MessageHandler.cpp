@@ -12,6 +12,12 @@ void MessageHandler::receive_message(int client_id, std::string raw_message) {
 
     bool is_client_logged_in = storage->is_client_with_id_logged_in(client_id);
     bool is_login_command = message.get_type() == login_command;
+    bool is_disconnect_command = message.get_type() == disconnect_command;
+
+    if (!is_client_logged_in && is_disconnect_command) {
+        close_connection_with_client(client_id);
+        return;
+    }
 
     if (!is_client_logged_in && !is_login_command) {
         send_message_to_client_id(client_id, "You need to log-in first. Try /login <nickname>\n");
