@@ -10,6 +10,7 @@ public:
     static std::string join_vector(std::vector<int>);
 
     static int max(int, int);
+    static unsigned long min(unsigned long, unsigned long);
 };
 
 

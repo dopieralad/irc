@@ -16,13 +16,13 @@ int main() {
     MessageHandler message_handler(&storage);
 
     server.on_message([&server, &message_handler](int client_id, std::string message) -> void {
-        std::cout << client_id << " -> " << message << std::endl;
+//        std::cout << client_id << " -> " << message << std::endl;
 
         message_handler.receive_message(client_id, message);
     });
 
     message_handler.set_send_message_to_clients_ids([&server](std::vector<int> client_ids, std::string message) {
-        std::cout << Utils::join_vector(client_ids) << " <- " << message << std::endl;
+//        std::cout << Utils::join_vector(client_ids) << " <- " << message << std::endl;
 
         server.send_message_to_clients(client_ids, message);
     });

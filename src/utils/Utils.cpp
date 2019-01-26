@@ -16,3 +16,7 @@ std::string Utils::join_vector(std::vector<int> nums) {
 int Utils::max(int a, int b) {
     return a > b ? a : b;
 }
+
+unsigned long Utils::min(unsigned long a, unsigned long b) {
+    return a < b ? a : b;
+}

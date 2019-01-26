@@ -74,6 +74,10 @@ std::string format_message(std::string raw_message) {
 
 void Server::send_message_to_client(int client_id, std::string message) {
     std::string formatted_message = format_message(message);
+
+    std::cout << std::to_string(client_id) << " <- " << formatted_message << std::endl;
+
+    // FIXME: memory leak
     this->messages_being_written[client_id] = new WrittenMessageBuffer(formatted_message);
     multiplexer.start_writing_to(client_id);
 }
